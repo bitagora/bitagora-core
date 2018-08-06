@@ -1,0 +1,11 @@
+endpoint = 'tcp://NIP:8801'
+bind = [ 'network:tcp://eth0:8801', 'component:tcp://eth0:4004' ]
+peering = 'dynamic'
+scheduler = 'parallel'
+seeds = SEEDS
+network_public_key =  NETWORK_PUBLIC_KEY
+network_private_key = NETWORK_PRIVATE_KEY
+minimum_peer_connectivity = 3
+maximum_peer_connectivity = 10
+[roles]
+network = 'trust'

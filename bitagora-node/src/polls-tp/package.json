@@ -1,0 +1,22 @@
+{
+  "name": "polls-tp",
+  "version": "0.1.0",
+  "author": "Ignasi Ribó, 2018",
+  "license": "Apache-2.0",
+  "description": "Transaction processor for polls using the Bitagora Platform",
+  "main": "polls.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bitagora/bitagora-core.git"
+  },
+  "dependencies": {
+    "bitagora-library": "0.1.0",
+    "atob": "^2.1.0",
+    "btoa": "^1.2.1",
+    "cbor": "^4.0.0",
+    "request": "^2.87.0",
+    "elliptic": "^6.4.0",
+    "protobufjs": "^6.8.6",
+    "sawtooth-sdk": "^1.0.4"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "shell",
+  "version": "0.1.0",
+  "author": "Ignasi Ribó, 2018",
+  "license": "Apache-2.0",
+  "description": "Shell JS functions for nodes in the Bitagora Platform",
+  "main": "shell.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bitagora/bitagora-core.git"
+  },
+  "dependencies": {
+    "bitagora-library": "0.1.1",
+    "atob": "^2.1.0",
+    "base-x": "^3.0.4",
+    "btoa": "^1.2.0",
+    "cbor": "^4.0.0",
+    "elliptic": "^6.4.0",
+    "request": "^2.8.1",
+    "protobufjs": "^6.8.6",
+    "sawtooth-sdk": "^1.0.4",
+    "shelljs": "^0.8.1",
+    "console.table": "^0.10.0"
+  }
+}

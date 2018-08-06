@@ -1,0 +1,101 @@
+version: "2.1"
+
+services:
+
+  shell:
+    image: bitagora/shell:0.1.0
+    container_name: bitagora-shell
+    environment:
+      - VALIDATOR_URL=tcp://validator:4004
+      - API_URL=http://NIP:8008
+    restart: always
+    command: |
+      bash -c "
+        if [ ! -f /etc/sawtooth/keys/validator.priv ]; then
+          sawtooth keygen --key-dir /etc/sawtooth/keys validator
+        fi;
+        export API_URL
+        tail -f /dev/null
+      "
+    stop_signal: SIGKILL
+
+  polls-tp:
+    image: bitagora/polls-tp:0.1.0
+    container_name: bitagora-polls-tp
+    restart: always
+    depends_on:
+      - validator
+    entrypoint: |
+      /usr/bin/node polls.js tcp://validator:4004
+    stop_signal: SIGKILL
+
+  ballots-tp:
+    image: bitagora/ballots-tp:0.1.0
+    container_name: bitagora-ballots-tp
+    restart: always
+    depends_on:
+      - validator
+    entrypoint: |
+      /usr/bin/node ballots.js tcp://validator:4004
+    stop_signal: SIGKILL
+
+  settings-tp:
+    image: hyperledger/sawtooth-settings-tp:1.0.4
+    container_name: bitagora-settings-tp
+    restart: always
+    depends_on:
+      - validator
+    entrypoint: settings-tp -vv -C tcp://validator:4004
+    stop_signal: SIGKILL
+
+  poet-validator-registry-tp:
+    image: hyperledger/sawtooth-poet-validator-registry-tp:1.0.4
+    container_name: bitagora-poet-validator-registry-tp
+    restart: always
+    expose:
+      - 4004
+    command: poet-validator-registry-tp -C tcp://validator:4004
+    environment:
+      PYTHONPATH: /project/sawtooth-core/consensus/poet/common
+    stop_signal: SIGKILL
+
+  validator:
+    image: hyperledger/sawtooth-validator:1.0.4
+    container_name: bitagora-validator
+    restart: always
+    expose:
+      - 4004
+      - 8801
+    ports:
+      - '8801:8801'
+    volumes:
+      - ./validator.toml:/etc/sawtooth/validator.toml
+    entrypoint: |
+      bash -c "
+        if [ ! -f /etc/sawtooth/keys/validator.priv ]; then 
+          sawadm keygen --force
+        fi;
+        sawtooth-validator -vv
+      "
+    environment:
+      PYTHONPATH: "/project/sawtooth-core/consensus/poet/common:\
+        /project/sawtooth-core/consensus/poet/simulator:\
+        /project/sawtooth-core/consensus/poet/core"
+    stop_signal: SIGKILL
+
+  rest-api:
+    image: bitagora/rest-api:0.1.0
+    container_name: bitagora-rest-api
+    restart: always
+    expose:
+      - 8008
+      - 4004
+    ports:
+      - '8008:8008'
+    depends_on:
+      - validator
+    entrypoint: |
+      sawtooth-rest-api -vv
+        --connect tcp://validator:4004
+        --bind rest-api:8008
+    stop_signal: SIGKILL

@@ -1,0 +1,23 @@
+{
+  "name": "bitagora-library",
+  "version": "0.1.1",
+  "license": "Apache-2.0",
+  "author": "Ignasi Ribó, 2018",
+  "description": "Shared functions and constants available for the different components of the Bitagora Platform",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bitagora/bitagora-core.git"
+  },
+  "dependencies": {
+    "async": "2.6.0",
+    "atob": "2.1.1",
+    "base-x": "3.0.4",
+    "btoa": "1.2.1",
+    "cbor": "4.0.0",
+    "elliptic": "^6.4.0",
+    "protobufjs": "^6.8.6",
+    "request": "2.87.0",
+    "sawtooth-sdk": "^1.0.4"
+  }
+}

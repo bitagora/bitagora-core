@@ -1,0 +1,8 @@
+{
+  "httpMethod": "GET",
+  "body": 
+  { 
+	  "poll": "poll_id",
+	  "id": "voter_id_to_register"
+  }
+}

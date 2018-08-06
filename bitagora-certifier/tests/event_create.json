@@ -1,0 +1,7 @@
+{
+  "httpMethod": "POST",
+  "body": {
+  		"action": "create",
+  		"privkey": "admin_private_key"
+  	}
+}
