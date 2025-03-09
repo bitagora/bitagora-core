@@ -117,7 +117,7 @@
  			let registration = {
  				privkey: Bs58.encode(Buffer.from(voterPrivkeyHex, 'hex')),
  				id: vote.id,
- 				certsig: certKey.sign(getVoteToken(vote)).toDER('hex'),
+ 				certsig: certKey.sign(_hash('sha256',_hash('sha256',getVoteToken(vote)))).toDER('hex'),
  				date: vote.date
  			}
  			resolve(registration);

@@ -35,7 +35,7 @@ RUN \
  if [ ! -z $https_proxy ]; then \
   npm config set https-proxy $https_proxy; \
  fi
-
+RUN npm install
 EXPOSE 4004/tcp
 
 CMD ["/usr/bin/node", "./ballots.js", "tcp://validator:4004"]

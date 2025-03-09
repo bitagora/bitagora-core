@@ -33,7 +33,7 @@ RUN \
  if [ ! -z $https_proxy ]; then \
   npm config set https-proxy $https_proxy; \
  fi
-
+RUN npm install
 ENV PATH $PATH:/bitagora-shell/bin
 
 CMD ["tail", "-f", "/dev/null"]
